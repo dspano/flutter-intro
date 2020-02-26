@@ -13,28 +13,27 @@ class MyApp extends StatefulWidget {
 }
 
 class _State extends State<MyApp> {
-  int _value = 0;
+  String _value = "";
 
-  void _add() => setState(() => _value++);
-  void _subtract() => setState(() => _value--);
-  
+  void _onClick() => setState(() => _value = new DateTime.now().toString());
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('Name here'),
-        backgroundColor: Colors.red,
-        actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.add), onPressed: _add),
-          new IconButton(icon: new Icon(Icons.remove), onPressed: _subtract)
-        ],
+      ),
+      floatingActionButton: new FloatingActionButton(
+          onPressed: _onClick,
+          backgroundColor: Colors.red,
+          mini: true,
+          child: new Icon(Icons.timer)
       ),
       body: new Container(
         padding: new EdgeInsets.all(32.0),
         child: new Center(
           child: new Column(
             children: <Widget>[
-              new Text(_value.toString()),
+              new Text(_value),
             ]
           )
         )
@@ -59,7 +58,8 @@ class _State extends State<MyApp> {
 
 */
 
-/**                  * AppBar features *
+/**
+ *                    * AppBar features *
  *
     int _value = 0;
     void _add() => setState(() => _value++);
@@ -73,5 +73,17 @@ class _State extends State<MyApp> {
         new IconButton(icon: new Icon(Icons.remove), onPressed: _subtract)
       ],
     )
+ */
+
+/**
+ *                * Floating Action Button *
+ *
+    void _onClick() => setState(() => _value = new DateTime.now().toString());
+    floatingActionButton: new FloatingActionButton(
+      onPressed: _onClick,
+      backgroundColor: Colors.red,
+      mini: false,
+      child: new Icon(Icons.timer)
+    ),
  */
 
