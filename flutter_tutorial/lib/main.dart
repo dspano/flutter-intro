@@ -13,16 +13,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _State extends State<MyApp> {
-  final GlobalKey<ScaffoldState> _scaffoldstate = new GlobalKey<ScaffoldState>();
-  
-  void _showbar() {
-    _scaffoldstate.currentState.showSnackBar(new SnackBar(content: new Text("Hello World")));
+
+  Future _showAlert(BuildContext context, String message) async {
+    return showDialog(
+      context: context,
+      child: new AlertDialog(
+        title: new Text(message),
+        actions: <Widget>[
+          new FlatButton(onPressed: () => Navigator.pop(context), child: new Text("OK"))
+        ],
+      )
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      key: _scaffoldstate,
       appBar: new AppBar(
         title: new Text('Name here'),
       ),
@@ -32,7 +38,7 @@ class _State extends State<MyApp> {
           child: new Column(
             children: <Widget>[
               new Text("Add Widgets Here"),
-              new RaisedButton(onPressed: _showbar, child: new Text("Click Me"))
+              new RaisedButton(onPressed: () => _showAlert(context, "Do you like Flutter, I do!"), child: new Text("Click Me"))
             ]
           )
         )
