@@ -13,20 +13,25 @@ class MyApp extends StatefulWidget {
 }
 
 class _State extends State<MyApp> {
-  String _value = "";
 
-  void _onClick(String value) => setState(() => _value = value);
+  List<BottomNavigationBarItem> _items;
+  String _value = '';
+  int _index = 0;
+
+  @override
+  void initState() {
+    _items = new List();
+    _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.people), title: new Text("People")));
+    _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.weekend), title: new Text("Weekend")));
+    _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.message), title: new Text("Message")));
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('Name here'),
       ),
-      persistentFooterButtons: <Widget>[
-        new IconButton(icon: new Icon(Icons.timer), onPressed: () => _onClick("Button 1")),
-        new IconButton(icon: new Icon(Icons.people), onPressed: () => _onClick("Button 2")),
-        new IconButton(icon: new Icon(Icons.ac_unit), onPressed: () => _onClick("Button 3"))
-      ],
       body: new Container(
         padding: new EdgeInsets.all(32.0),
         child: new Center(
@@ -37,6 +42,16 @@ class _State extends State<MyApp> {
           )
         )
       ),
+      bottomNavigationBar: new BottomNavigationBar(
+        items: _items,
+        fixedColor: Colors.blue,
+        currentIndex: _index,
+        onTap: (int item) {
+          setState(() {
+            _index = item;
+            _value = "Current Value Is: ${_index.toString()}";
+          });
+        }),
     );
   }
 }
