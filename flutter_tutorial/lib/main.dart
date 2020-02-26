@@ -13,17 +13,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _State extends State<MyApp> {
-
-  List<BottomNavigationBarItem> _items;
-  String _value = '';
-  int _index = 0;
-
-  @override
-  void initState() {
-    _items = new List();
-    _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.people), title: new Text("People")));
-    _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.weekend), title: new Text("Weekend")));
-    _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.message), title: new Text("Message")));
+  void _showBottom() {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return new Container(
+          padding: new EdgeInsets.all(15.0),
+          child: new Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new Text("Some info here", style: new TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+              new RaisedButton(onPressed: () => Navigator.pop(context), child: new Text("Close"))
+            ]
+          )
+        );
+      }
+    );
   }
 
   @override
@@ -37,21 +42,12 @@ class _State extends State<MyApp> {
         child: new Center(
           child: new Column(
             children: <Widget>[
-              new Text(_value),
+              new Text("Add Widgets Here"),
+              new RaisedButton(onPressed: _showBottom, child: new Text("Click Me"))
             ]
           )
         )
       ),
-      bottomNavigationBar: new BottomNavigationBar(
-        items: _items,
-        fixedColor: Colors.blue,
-        currentIndex: _index,
-        onTap: (int item) {
-          setState(() {
-            _index = item;
-            _value = "Current Value Is: ${_index.toString()}";
-          });
-        }),
     );
   }
 }
