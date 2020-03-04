@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 void main() {
   runApp(new MaterialApp(
@@ -12,51 +11,44 @@ class MyApp extends StatefulWidget {
   _State createState() => new _State();
 }
 
-enum Answers{YES, NO, MAYBE}
-
 class _State extends State<MyApp> {
 
-  String _value = 'Name Here';
+  TextEditingController _user = new TextEditingController();
+  TextEditingController _pass = new TextEditingController();
 
-  void setValue(String value) => setState(() => _value = value );
-
-  Future _askUser() async {
-    switch(
-    await showDialog(
-        context: context,
-        child: new SimpleDialog(
-            title: new Text("Do you like Flutter?"),
-            children: <Widget>[
-              new SimpleDialogOption(child: new Text("YES!!!"), onPressed: () { Navigator.pop(context, Answers.YES);}),
-              new SimpleDialogOption(child: new Text("NO"), onPressed: () { Navigator.pop(context, Answers.NO);}),
-              new SimpleDialogOption(child: new Text("MAYBE"), onPressed: () { Navigator.pop(context, Answers.MAYBE);})
-            ],
-        )
-      )
-    ) {
-      case Answers.YES:
-        setValue('YES');
-        break;
-      case Answers.NO:
-        setValue('NO');
-        break;
-      case Answers.MAYBE:
-        setValue('MAYBE');
-        break;
-    }
-  }
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(_value),
+        title: new Text('Name here'),
       ),
       body: new Container(
         padding: new EdgeInsets.all(32.0),
         child: new Center(
           child: new Column(
             children: <Widget>[
-              new RaisedButton(onPressed: _askUser, child: new Text("Click Me"))
+              new Text('Please Login'),
+              new Row(
+                children: <Widget>[
+                  new Text('Username: '),
+                  new Expanded(child: new TextField(
+                    controller: _user,
+                  )
+                  )
+                ]
+              ),
+              new Row(
+                children: <Widget>[
+                  new Text('Password: '),
+                  new Expanded(child: new TextField(
+                    controller: _pass, obscureText: true,
+                  )
+                  )
+                ],
+              ),
+              new Padding(
+                  padding: new EdgeInsets.all(12.0),
+              child: new RaisedButton(onPressed:() => print('Login ${_user.text}'), child: new Text('Click Me')))
             ]
           )
         )
@@ -64,75 +56,3 @@ class _State extends State<MyApp> {
     );
   }
 }
-
-/**
- *                    * Date Picker *
- *
-    Future _selectDate() async { // async keyword is very important
-      DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: new DateTime.now(),
-        firstDate: new DateTime(2016),
-        lastDate: new DateTime(2021)
-      );
-
-      if (picked != null) setState(() => _value = picked.toString());
-    }
-
-*/
-
-/**
- *                    * AppBar features *
- *
-    int _value = 0;
-    void _add() => setState(() => _value++);
-    void _subtract() => setState(() => _value--);
-
-    appBar: new AppBar(
-      title: new Text('Name here'),
-      backgroundColor: Colors.red,
-      actions: <Widget>[
-        new IconButton(icon: new Icon(Icons.add), onPressed: _add),
-        new IconButton(icon: new Icon(Icons.remove), onPressed: _subtract)
-      ],
-    )
- */
-
-/**
- *                * Floating Action Button *
- *
-    void _onClick() => setState(() => _value = new DateTime.now().toString());
-    floatingActionButton: new FloatingActionButton(
-      onPressed: _onClick,
-      backgroundColor: Colors.red,
-      mini: false,
-      child: new Icon(Icons.timer)
-    ),
- */
-
-/**
- *                * Drawer *
- *
-    drawer: new Drawer(
-      child: new Container(
-        padding: new EdgeInsets.all(32.0),
-        child: new Column(
-          children: <Widget>[
-            new Text("Hello Drawer"),
-            new RaisedButton(onPressed: () => Navigator.pop(context), child: new Text("Close"))
-          ],
-        )
-      )
-    )
-  */
-
-/**
- *                * Persistent Footer Buttons *
- *
-    persistentFooterButtons: <Widget>[
-      new IconButton(icon: new Icon(Icons.timer), onPressed: () => _onClick("Button 1")),
-      new IconButton(icon: new Icon(Icons.people), onPressed: () => _onClick("Button 2")),
-      new IconButton(icon: new Icon(Icons.ac_unit), onPressed: () => _onClick("Button 3"))
-    ]
-  *
-  */
