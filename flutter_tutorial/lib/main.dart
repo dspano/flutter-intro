@@ -12,33 +12,51 @@ class MyApp extends StatefulWidget {
   _State createState() => new _State();
 }
 
+enum Answers{YES, NO, MAYBE}
+
 class _State extends State<MyApp> {
 
-  Future _showAlert(BuildContext context, String message) async {
-    return showDialog(
-      context: context,
-      child: new AlertDialog(
-        title: new Text(message),
-        actions: <Widget>[
-          new FlatButton(onPressed: () => Navigator.pop(context), child: new Text("OK"))
-        ],
-      )
-    );
-  }
+  String _value = 'Name Here';
 
+  void setValue(String value) => setState(() => _value = value );
+
+  Future _askUser() async {
+    switch(
+    await showDialog(
+        context: context,
+        child: new SimpleDialog(
+            title: new Text("Do you like Flutter?"),
+            children: <Widget>[
+              new SimpleDialogOption(child: new Text("YES!!!"), onPressed: () { Navigator.pop(context, Answers.YES);}),
+              new SimpleDialogOption(child: new Text("NO"), onPressed: () { Navigator.pop(context, Answers.NO);}),
+              new SimpleDialogOption(child: new Text("MAYBE"), onPressed: () { Navigator.pop(context, Answers.MAYBE);})
+            ],
+        )
+      )
+    ) {
+      case Answers.YES:
+        setValue('YES');
+        break;
+      case Answers.NO:
+        setValue('NO');
+        break;
+      case Answers.MAYBE:
+        setValue('MAYBE');
+        break;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Name here'),
+        title: new Text(_value),
       ),
       body: new Container(
         padding: new EdgeInsets.all(32.0),
         child: new Center(
           child: new Column(
             children: <Widget>[
-              new Text("Add Widgets Here"),
-              new RaisedButton(onPressed: () => _showAlert(context, "Do you like Flutter, I do!"), child: new Text("Click Me"))
+              new RaisedButton(onPressed: _askUser, child: new Text("Click Me"))
             ]
           )
         )
