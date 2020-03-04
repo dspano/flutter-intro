@@ -19,43 +19,13 @@ class _State extends State<MyApp> {
         title: new Text('Name here'),
       ),
       body: new Container(
-        padding: new EdgeInsets.all(32.0),
+        padding: new EdgeInsets.all(52.0),
         child: new Center(
           child: new Column(
             children: <Widget>[
-              new Card(
-                  child: new Container(
-                      padding: new EdgeInsets.all(32.0),
-                      child: new Column(
-                        children: <Widget>[
-                          new Text("Hello World"),
-                          new Text("How are you?"),
-                        ],
-                      )
-                  )
-              ),
-              new Card(
-                  child: new Container(
-                      padding: new EdgeInsets.all(32.0),
-                      child: new Column(
-                        children: <Widget>[
-                          new Text("Hello World"),
-                          new Text("How are you?"),
-                        ],
-                      )
-                  )
-              ),
-              new Card(
-                  child: new Container(
-                      padding: new EdgeInsets.all(32.0),
-                      child: new Column(
-                        children: <Widget>[
-                          new Text("Hello World"),
-                          new Text("How are you?"),
-                        ],
-                      )
-                  )
-              ),
+              new Text('Image Demo'),
+              new Expanded(child: new Image.asset('images/chloe.jpeg')),
+              new Expanded(child: new Image.network('http://voidrealms.com/images/smile.jpg'))
             ]
           )
         )
