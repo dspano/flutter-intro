@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
 void main() {
   runApp(new MaterialApp(
@@ -19,13 +23,11 @@ class _State extends State<MyApp> {
         title: new Text('Name here'),
       ),
       body: new Container(
-        padding: new EdgeInsets.all(52.0),
+        padding: new EdgeInsets.all(32.0),
         child: new Center(
           child: new Column(
             children: <Widget>[
-              new Text('Image Demo'),
-              new Expanded(child: new Image.asset('images/chloe.jpeg')),
-              new Expanded(child: new Image.network('http://voidrealms.com/images/smile.jpg'))
+              new Text('Hello World')
             ]
           )
         )
